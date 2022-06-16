@@ -22,8 +22,9 @@
     </li>
   </ul>
 </nav>
-<div class="container-fluid" style="margin-top:80px">
+<div class="container" style="margin-top:80px">
   <div class="container mt-4"><br>
+    <h1>Tabla de compras</h1>
     <a th:href="@{/nuevo}" class="btn btn-primary">Nueva Compra</a>
     <table class="table">
      <thead>
@@ -52,6 +53,11 @@
          <td th:text="${persona.compra_diferir}"></td>
          <td th:text="${persona.producto_nombre}"></td>
          <td th:text="${persona.producto_precio}"></td>
+         <td>
+           <a th:href="@{/informacionPago/}+${persona.id}" class="btn btn-primary">
+               Editar
+           </a>
+         </td>
          <td>
            <a th:onclick="eliminar([[${persona.id}]])" class="btn btn-danger">
                Eliminar

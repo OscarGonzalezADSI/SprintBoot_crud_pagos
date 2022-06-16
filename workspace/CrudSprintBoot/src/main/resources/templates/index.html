@@ -29,12 +29,12 @@
     <table class="table">
      <thead>
        <tr>
-         <td>id</td>
-         <td>cliente_nombre</td>
-         <td>cliente_apellido</td>
-         <td>cliente_correo</td>
-         <td>credito_numero</td>
-         <td>tarjeta_vencimiento</td>
+         <td></td>
+         <td></td>
+         <td>id_transaccion</td>
+         <td>nombres</td>
+         <td>apellido</td>
+         <td>correo</td>
          <td>compra_diferir</td>
          <td>producto_nombre</td>
          <td>producto_precio</td>
@@ -44,18 +44,26 @@
      </thead>
       <tbody>
         <tr th:each="persona:${personas}">
+         <td>
+           <a th:href="@{/informacionPago/}+${persona.id}" class="btn btn-primary">
+               ver
+           </a>
+         </td>
+         <td>
+           <a th:onclick="eliminar([[${persona.id}]])" class="btn btn-danger">
+               Eliminar
+           </a>
+         </td>
          <td th:text="${persona.id}"></td>
          <td th:text="${persona.cliente_nombre}"></td>
          <td th:text="${persona.cliente_apellido}"></td>
          <td th:text="${persona.cliente_correo}"></td>
-         <td th:text="${persona.credito_numero}"></td>
-         <td th:text="${persona.tarjeta_vencimiento}"></td>
          <td th:text="${persona.compra_diferir}"></td>
          <td th:text="${persona.producto_nombre}"></td>
          <td th:text="${persona.producto_precio}"></td>
          <td>
            <a th:href="@{/informacionPago/}+${persona.id}" class="btn btn-primary">
-               Editar
+               ver
            </a>
          </td>
          <td>
