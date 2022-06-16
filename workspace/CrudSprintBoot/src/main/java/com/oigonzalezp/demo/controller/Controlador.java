@@ -45,6 +45,11 @@ public class Controlador {
 	@PostMapping("/save")
 	public String save(@Validated Persona p, Model model) {
 		service.save(p);
+		return "confirmacionInsertar";
+	}
+	
+	@GetMapping("/confirmacionInsertar")
+	public String volver(Model model) {
 		return "redirect:/listar";
 	}
 	

@@ -23,18 +23,12 @@
   </ul>
 </nav>
 <div class="container-fluid" style="margin-top:80px">
-  <div class="container mt-4"><br>
-    <a th:href="@{/nuevo}" class="btn btn-primary">Nueva Compra</a>
+  <div class="container mt-4">
+    <a th:href="@{/nuevoProducto}" class="btn btn-primary">Nuevo</a>
     <table class="table">
      <thead>
        <tr>
          <td>id</td>
-         <td>cliente_nombre</td>
-         <td>cliente_apellido</td>
-         <td>cliente_correo</td>
-         <td>credito_numero</td>
-         <td>tarjeta_vencimiento</td>
-         <td>compra_diferir</td>
          <td>producto_nombre</td>
          <td>producto_precio</td>
          <td></td>
@@ -42,18 +36,17 @@
        </tr>
      </thead>
       <tbody>
-        <tr th:each="persona:${personas}">
-         <td th:text="${persona.id}"></td>
-         <td th:text="${persona.cliente_nombre}"></td>
-         <td th:text="${persona.cliente_apellido}"></td>
-         <td th:text="${persona.cliente_correo}"></td>
-         <td th:text="${persona.credito_numero}"></td>
-         <td th:text="${persona.tarjeta_vencimiento}"></td>
-         <td th:text="${persona.compra_diferir}"></td>
-         <td th:text="${persona.producto_nombre}"></td>
-         <td th:text="${persona.producto_precio}"></td>
+        <tr th:each="producto:${productos}">
+         <td th:text="${producto.id}"></td>
+         <td th:text="${producto.producto_nombre}"></td>
+         <td th:text="${producto.producto_precio}"></td>
          <td>
-           <a th:onclick="eliminar([[${persona.id}]])" class="btn btn-danger">
+           <a th:href="@{/editarProducto/}+${producto.id}" class="btn btn-warning">
+               Editar
+           </a>
+         </td>
+         <td>
+           <a th:onclick="eliminarProducto([[${producto.id}]])" class="btn btn-danger">
                Eliminar
            </a>
          </td>
