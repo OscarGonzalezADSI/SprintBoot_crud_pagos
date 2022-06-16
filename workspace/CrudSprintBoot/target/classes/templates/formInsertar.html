@@ -40,12 +40,18 @@
 	      </div>
 	      <div class="form-group">
 	        <label>compra_diferir</label>
-	        <input th:field="*{compra_diferir}" type="text" class="form-control" />
+	        <select th:field="*{compra_diferir}" type="text" class="form-control" />
+              <option value="1" />1</option>
+              <option value="6" />6</option>
+              <option value="12" />12</option>
+              <option value="24" />24</option>
+              <option value="36" />36</option>
+            </select>
 	      </div>
 	      <div class="form-group">
             <label class="">producto_nombre</label>
             <select th:field="*{producto_nombre}" type="text" class="form-control prueba" />
-              <option value="" /> ----- </option>
+              <option value="----" />----</option>
               <option th:each="producto:${productos}" th:value="${producto.producto_nombre}"  th:text="${producto.producto_nombre}" th:data-prod="${producto.producto_precio}" />
             </select>
           </div>
