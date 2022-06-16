@@ -45,12 +45,14 @@ public class Controlador {
 	@PostMapping("/save")
 	public String save(@Validated Persona p, Model model) {
 		service.save(p);
-		return "confirmacionInsertar";
+		return "redirect:informacionPago/"+p.getId();
 	}
 	
-	@GetMapping("/confirmacionInsertar")
-	public String volver(Model model) {
-		return "redirect:/listar";
+	@GetMapping("/informacionPago/{id}")
+	public String volver(@PathVariable int id, Model model) {
+		Optional<Persona>persona=service.listarId(id);
+		model.addAttribute("persona", persona);
+		return "informacionPago";
 	}
 	
 	@GetMapping("/editar/{id}")
