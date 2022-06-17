@@ -44,8 +44,11 @@ public class Controlador {
 	
 	@PostMapping("/save")
 	public String save(@Validated Persona p, Model model) {
-		service.save(p);
-		return "redirect:informacionPago/"+p.getId();
+		int resp = service.save(p);
+		if(resp == 1) {
+			return "redirect:/informacionPago/"+p.getId();
+		}
+		return "/registroPagoFallido";
 	}
 	
 	@GetMapping("/informacionPago/{id}")
@@ -53,6 +56,11 @@ public class Controlador {
 		Optional<Persona>persona=service.listarId(id);
 		model.addAttribute("persona", persona);
 		return "informacionPago";
+	}
+	
+	@GetMapping("/registroPagoFallido")
+	public String registroPagoFallido() {
+		return "registroPagoFallido";
 	}
 	
 	@GetMapping("/editar/{id}")
@@ -82,9 +90,12 @@ public class Controlador {
 	}
 	
 	@PostMapping("/saveProduct")
-	public String save(@Validated Producto p, Model model) {
-		serviceProducto.save(p);
-		return "redirect:/listarProductos";
+	public String save(@Validated Producto p, Model model) {	
+		int resp = serviceProducto.save(p);
+		if(resp == 1) {
+			return "redirect:/registroProductoExitoso";
+		}
+		return "/registroProductoFallido";
 	}
 	
 	@GetMapping("/editarProducto/{id}")
@@ -98,6 +109,21 @@ public class Controlador {
 	public String deleteProduct(Model model, @PathVariable int id) {
 		serviceProducto.delete(id);
 		return "redirect:/listarProductos";
+	}
+	
+	@GetMapping("/registroProductoExitoso")
+	public String registroProductoExitoso() {
+		return "registroProductoExitoso";
+	}
+
+	@GetMapping("/registroProductoFallido")
+	public String registroProductoFallido() {
+		return "registroProductoFallido";
+	}
+
+	@GetMapping("/mensajeError")
+	public String mensajeError() {
+		return "mensajeError";
 	}
 	
 }
