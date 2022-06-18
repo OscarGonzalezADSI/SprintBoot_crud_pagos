@@ -14,13 +14,13 @@ public class Producto {
 	
 	private int id;
 	private String producto_nombre;
-	private String producto_precio;
+	private Long producto_precio;
 	
 	public Producto() {
 		
 	}
-
-	public Producto(int id, String producto_nombre, String producto_precio) {
+	
+	public Producto(int id, String producto_nombre, Long producto_precio) {
 		super();
 		this.id = id;
 		this.producto_nombre = producto_nombre;
@@ -43,11 +43,11 @@ public class Producto {
 		this.producto_nombre = producto_nombre;
 	}
 
-	public String getProducto_precio() {
+	public Long getProducto_precio() {
 		return producto_precio;
 	}
 
-	public void setProducto_precio(String producto_precio) {
+	public void setProducto_precio(Long producto_precio) {
 		this.producto_precio = producto_precio;
 	}
 
