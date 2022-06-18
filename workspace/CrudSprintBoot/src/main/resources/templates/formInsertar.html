@@ -16,27 +16,27 @@
 	    <div class="card-body">
 	      <div class="form-group">
 	        <label>cliente_nombre</label>
-	        <input th:field="*{cliente_nombre}" type="text" class="form-control" />
+	        <input th:field="*{cliente_nombre}" type="text" class="form-control" required />
 	      </div>	      
 	      <div class="form-group">
 	        <label>cliente_apellido</label>
-	        <input th:field="*{cliente_apellido}" type="text" class="form-control" />
+	        <input th:field="*{cliente_apellido}" type="text" class="form-control" required />
 	      </div>	      
 	      <div class="form-group">
 	        <label>cliente_correo</label>
-	        <input th:field="*{cliente_correo}" type="text" class="form-control" />
+	        <input th:field="*{cliente_correo}" type="email" class="form-control" required />
 	      </div>	      
 	      <div class="form-group">
 	        <label>credito_numero</label>
-	        <input th:field="*{credito_numero}" type="number" class="form-control" />
+	        <input th:field="*{credito_numero}" type="number" class="form-control" required />
 	      </div>	      
 	      <div class="form-group">
 	        <label>tarjeta_vencimiento</label>
-	        <input th:field="*{tarjeta_vencimiento}" type="date" class="form-control" />
+	        <input th:field="*{tarjeta_vencimiento}" type="date" class="form-control" required />
 	      </div>
 	      <div class="form-group">
 	        <label>compra_diferir</label>
-	        <select th:field="*{compra_diferir}" type="text" class="form-control" />
+	        <select th:field="*{compra_diferir}" type="text" class="form-control" required />
               <option value="1" />1</option>
               <option value="6" />6</option>
               <option value="12" />12</option>
@@ -46,7 +46,7 @@
 	      </div>
 	      <div class="form-group">
             <label class="">producto_nombre</label>
-            <select th:field="*{producto_nombre}" type="text" class="form-control prueba" />
+            <select th:field="*{producto_nombre}" type="text" class="form-control prueba" required />
               <option value="----" />----</option>
               <option th:each="producto:${productos}" th:value="${producto.producto_nombre}"  th:text="${producto.producto_nombre}" th:data-prod="${producto.producto_precio}" />
             </select>

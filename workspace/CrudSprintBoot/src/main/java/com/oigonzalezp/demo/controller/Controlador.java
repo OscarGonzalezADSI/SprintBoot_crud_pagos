@@ -47,6 +47,12 @@ public class Controlador {
 		int resp = service.save(p);
 		if(resp == 1) {
 			return "redirect:/informacionPago/"+p.getId();
+		}else if(resp == 2) {
+			return "redirect:/registroPagoFallidoMax";
+		}else if(resp == 3) {
+			return "redirect:/registroPagoFallidoAcum";
+		}else if(resp == 4) {
+			return "redirect:/registroPagoFallidoTope";
 		}
 		return "/registroPagoFallido";
 	}
@@ -116,9 +122,19 @@ public class Controlador {
 		return "registroProductoExitoso";
 	}
 
-	@GetMapping("/registroProductoFallido")
-	public String registroProductoFallido() {
-		return "registroProductoFallido";
+	@GetMapping("/registroPagoFallidoAcum")
+	public String registroPagoFallidoAcum() {
+		return "registroPagoFallidoAcum";
+	}
+
+	@GetMapping("/registroPagoFallidoMax")
+	public String registroPagoFallidoMax() {
+		return "registroPagoFallidoMax";
+	}
+
+	@GetMapping("/registroPagoFallidoTope")
+	public String registroPagoFallidoTope() {
+		return "registroPagoFallidoTope";
 	}
 
 	@GetMapping("/mensajeError")

@@ -57,11 +57,14 @@ public class PersonaService implements IPersonaService{
 		}
 
 		if(topeMx) {
-			System.out.println("una de las compras registradas durante el dia supera los 10.000.000 "+topeMx);			
+			System.out.println("una de las compras registradas durante el dia supera los 10.000.000 "+topeMx);
+			res=4;
 		}else if(sumatoria>5000000){
-			System.out.println("la sumatoria de compras supera los 5.000.000 ");		
+			System.out.println("la sumatoria de compras supera los 5.000.000 ");
+			res=3;
 		}else if(numTran>5){
-			System.out.println("se ha superado el limite de 5 compras del dia. ");			
+			System.out.println("se ha superado el limite de 5 compras del dia. ");
+			res=2;
 		}else {
 			Persona persona=data.save(p);
 			if(!persona.equals(null))
