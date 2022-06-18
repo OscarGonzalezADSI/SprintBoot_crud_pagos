@@ -36,8 +36,6 @@ public class PersonaService implements IPersonaService{
 		float sumatoria = 0;
 		boolean topeMx = false;
 		p.setFecha_transaccion(LocalDate.now().toString());
-
-		System.out.println("los que cumplen");
 		List<Persona> items2 = listar();
 		Iterator<Persona> iter2 = items2.iterator();
 
@@ -47,7 +45,6 @@ public class PersonaService implements IPersonaService{
 				if(next2.getFecha_transaccion().equals(LocalDate.now().toString())) {
 					if(next2.getProducto_precio()<10000000) {
 						sumatoria = sumatoria + next2.getProducto_precio();
-						System.out.println(next2.getId()+" - "+ next2.getCredito_numero() +" - "+next2.getProducto_precio()+ " - "+next2.getFecha_transaccion()+" - "+LocalDate.now().toString());
 						numTran=numTran+1;
 					} else {
 						topeMx=true;
@@ -57,13 +54,10 @@ public class PersonaService implements IPersonaService{
 		}
 
 		if(topeMx) {
-			System.out.println("una de las compras registradas durante el dia supera los 10.000.000 "+topeMx);
 			res=4;
 		}else if(sumatoria>5000000){
-			System.out.println("la sumatoria de compras supera los 5.000.000 ");
 			res=3;
 		}else if(numTran>5){
-			System.out.println("se ha superado el limite de 5 compras del dia. ");
 			res=2;
 		}else {
 			Persona persona=data.save(p);
