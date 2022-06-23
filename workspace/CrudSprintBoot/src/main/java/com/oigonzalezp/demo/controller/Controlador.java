@@ -44,17 +44,26 @@ public class Controlador {
 	
 	@PostMapping("/save")
 	public String save(@Validated Persona p, Model model) {
-		int resp = service.save(p);
-		if(resp == 1) {
-			return "redirect:/informacionPago/"+p.getId();
-		}else if(resp == 2) {
-			return "redirect:/registroPagoFallidoMax";
-		}else if(resp == 3) {
-			return "redirect:/registroPagoFallidoAcum";
-		}else if(resp == 4) {
-			return "redirect:/registroPagoFallidoTope";
+		int res = service.save(p);
+		String view;
+		switch(res) {
+			case 1:
+				view = "redirect:/informacionPago/"+p.getId();
+				break;
+			case 2:
+				view = "redirect:/registroPagoFallidoMax";
+				break;
+			case 3:
+				view = "redirect:/registroPagoFallidoAcum";
+				break;
+			case 4:
+				view = "redirect:/registroPagoFallidoTope";
+				break;
+			default:
+				view = "redirect:/mensajeError";
+				break;
 		}
-		return "/registroPagoFallido";
+		return view;
 	}
 	
 	@GetMapping("/informacionPago/{id}")

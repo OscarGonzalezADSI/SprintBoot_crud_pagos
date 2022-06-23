@@ -20,58 +20,124 @@ public class PersonaService implements IPersonaService{
 	
 	@Override
 	public List<Persona> listar() {
-		return (List<Persona>)data.findAll();
+		try {
+			List<Persona> items = null;
+			items = (List<Persona>)data.findAll();
+			return items;
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
 	}
 
 	@Override
 	public Optional<Persona> listarId(int id) {
-		return data.findById(id);
+		try {
+			Optional<Persona> item = null;
+			item = data.findById(id);
+			return item;
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
 	}
 
 	@Override
 	public int save(Persona p) {
-
-		int res=0;
-		int numTran = 0;
-		float sumatoria = 0;
-		boolean topeMx = false;
+		int res = 0;
+		try {
+			int aut = validaTransaccion(p);
+			if(aut == 1) {
+				Persona persona=data.save(p);
+				if(!persona.equals(null))
+				{
+					res=1;
+				}				
+			}
+			return res;
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return 0;
+		}
+	}
+	
+	private int validaTransaccion(Persona p) {
+		
+		int res=0, cantTransacciones = 0;
+		float contabilidad = 0;
+		boolean superaTopeMx = false;
+		
 		p.setFecha_transaccion(LocalDate.now().toString());
-		List<Persona> items2 = listar();
-		Iterator<Persona> iter2 = items2.iterator();
+		
+		List<Persona> items = listar();
+		Iterator<Persona> iter = items.iterator();
 
-		while(iter2.hasNext()){
-			Persona next2 = iter2.next();
-			if(next2.getCredito_numero().equals(p.getCredito_numero())) {
-				if(next2.getFecha_transaccion().equals(LocalDate.now().toString())) {
-					if(next2.getProducto_precio()<10000000) {
-						sumatoria = sumatoria + next2.getProducto_precio();
-						numTran=numTran+1;
-					} else {
-						topeMx=true;
-					}
-				}
+		while(iter.hasNext())
+		{
+			Persona next = iter.next();
+			
+			if(validaTarjetaCredito(next, p) && validaFechaTransaccion(next, p))
+			{
+				contabilidad = validaMontoMaximoCompra(next) ? totalizaCompras(next, contabilidad) : contabilidad;
+				cantTransacciones = validaMontoMaximoCompra(next) ? cantTransacciones + 1 : cantTransacciones;
 			}
 		}
 
-		if(topeMx) {
-			res=4;
-		}else if(sumatoria>5000000){
-			res=3;
-		}else if(numTran>5){
-			res=2;
+		res = contextResponse(superaTopeMx, contabilidad, cantTransacciones);
+		
+		return res;
+	}
+	
+	private boolean validaTarjetaCredito(Persona next, Persona p)
+	{
+		boolean res = next.getCredito_numero().equals(p.getCredito_numero());
+		return res;
+	}
+	
+	private boolean validaFechaTransaccion(Persona next, Persona p)
+	{
+		boolean res = next.getFecha_transaccion().equals(LocalDate.now().toString());
+		return res;
+	}
+	
+	private boolean validaMontoMaximoCompra(Persona next)
+	{
+		int montoMaximo = 10000000;
+		return (next.getProducto_precio() < montoMaximo) ? true : false;
+	}
+	
+	private float totalizaCompras(Persona next, float sumatoria)
+	{
+		float res = sumatoria + next.getProducto_precio();
+		return res;
+	}
+	
+	private int contextResponse(boolean superaTopeMx, float contabilidad, int cantTransacciones)
+	{
+		int res;
+		if(superaTopeMx) {
+			res = 4;
+		}else if(contabilidad>5000000) {
+			res = 3;
+		}else if(cantTransacciones > 5) {
+			res = 2;
 		}else {
-			Persona persona=data.save(p);
-			if(!persona.equals(null))
-			{
-				res=1;
-			}		
+			res = 1;
 		}
-		return res;			
+		return res;
 	}
 
 	@Override
 	public void delete(int id) {
-		data.deleteById(id);
+		try {
+			data.deleteById(id);
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 }
